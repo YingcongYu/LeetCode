@@ -12,7 +12,7 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        index2 = list(range(len(nums2)))
+        index2 = list(range(n))
         index2.reverse()
         for i in index2:
             nums1[-i-1] = nums2[i]
