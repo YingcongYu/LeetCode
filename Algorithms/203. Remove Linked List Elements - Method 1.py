@@ -16,7 +16,6 @@ class Solution:
             elif head.val == val and head.next is None:
                 head = None
                 cur.next = head
-                cur = cur.next
             else:
                 cur.next = head
                 head = head.next
