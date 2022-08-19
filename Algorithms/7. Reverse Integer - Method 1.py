@@ -7,23 +7,21 @@
 class Solution:
     def reverse(self, x: int) -> int:
         if x >= 0:
-            new = list(str(x))
-            new.reverse()
-            x = 0
-            length = len(new)-1
-            for i in new:
-                x += 10**length * int(i)
-                length -= 1
+            x = str(x)
+            new = 0
+            length = 0
+            while length < len(x):
+                new += 10**length * int(x[length])
+                length += 1
         else:
-            new = list(str(-x))
-            new.reverse()
-            x = 0
-            length = len(new)-1
-            for i in new:
-                x += 10**length * int(i)
-                length -= 1
-            x = -x
-        if x > 2**31 - 1 or x < -2**31:
+            x = str(-x)
+            new = 0
+            length = 0
+            while length < len(x):
+                new += 10**length * int(x[length])
+                length += 1
+            new = -new
+        if new > 2**31 - 1 or new < -2**31:
             return 0
         else:
-            return x
+            return new
