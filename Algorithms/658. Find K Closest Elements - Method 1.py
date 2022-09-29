@@ -15,16 +15,16 @@ class Solution:
         output = []
         while k > 0:
             if front < 0:
-                heapq.heappush(output, arr[back])
+                output.append(arr[back])
                 back += 1
             elif back == len(arr):
-                heapq.heappush(output, arr[front])
+                output.append(arr[front])
                 front -= 1
             elif x - arr[front] <= arr[back] - x:
-                heapq.heappush(output, arr[front])
+                output.append(arr[front])
                 front -= 1
             else:
-                heapq.heappush(output, arr[back])
+                output.append(arr[back])
                 back += 1
             k -= 1
         return sorted(output)
