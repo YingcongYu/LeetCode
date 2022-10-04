@@ -10,11 +10,13 @@
 
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
-        row = [0] * (len(obstacleGrid[0]) + 1)
-        for i in range(len(obstacleGrid)-1, -1, -1):
+        m = len(obstacleGrid)
+        n = len(obstacleGrid[0])
+        row = [0] * (n + 1)
+        for i in range(m-1, -1, -1):
             newRow = row
-            for j in range(len(obstacleGrid[0])-1, -1, -1):
-                if i == len(obstacleGrid)-1 and j == len(obstacleGrid[0])-1 and obstacleGrid[i][j] == 0:
+            for j in range(n-1, -1, -1):
+                if i == m-1 and j == n-1 and obstacleGrid[i][j] == 0:
                     newRow[j] = 1
                 elif obstacleGrid[i][j] == 0:
                     newRow[j] = newRow[j+1] + row[j]
