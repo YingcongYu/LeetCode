@@ -29,8 +29,5 @@ class Solution:
             for j in range(n):
                 if board[i][j] == 'O':
                     board[i][j] = 'X'
-                    
-        for i in range(m):
-            for j in range(n):
-                if board[i][j] == 'U':
+                elif board[i][j] == 'U':
                     board[i][j] = 'O'
