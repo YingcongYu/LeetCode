@@ -16,10 +16,6 @@ class Solution:
     def convertToTitle(self, columnNumber: int) -> str:
         output = ''
         while columnNumber > 0:
-            if columnNumber % 26 == 0:
-                output += 'Z'
-                columnNumber = columnNumber // 26 - 1
-            else:
-                output += chr((columnNumber % 26) + ord('A') - 1)
-                columnNumber = columnNumber // 26
-        return output[::-1]
+            output = chr((columnNumber-1) % 26 + ord('A')) + output
+            columnNumber = (columnNumber-1) // 26
+        return output
