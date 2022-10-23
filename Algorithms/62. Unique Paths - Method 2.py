@@ -13,8 +13,6 @@ class Solution:
                 return memo[(m, n)]
             if m == 1 or n == 1:
                 return 1
-            elif m == 0 or n == 0:
-                return 0
             memo[(m, n)] = recursion(m-1, n, memo) + recursion(m, n-1, memo)
             return memo[(m, n)]
         memo = {}
