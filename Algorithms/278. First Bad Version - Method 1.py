@@ -19,7 +19,7 @@ class Solution:
         while start <= end:
             mid = (start + end) // 2
             if isBadVersion(mid) == True:
-                first_bad = min(first_bad, mid)
+                first_bad = mid
                 end = mid - 1
             else:
                 start = mid + 1
