@@ -15,18 +15,17 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        output = []
-        all_nodes = self.inorder(root, output)
-        index = 1
-        while index < len(all_nodes):
-            if all_nodes[index-1] >= all_nodes[index]:
+        nodes = []
+
+        def inorder(root, nodes):
+            if not root:
+                return
+            inorder(root.left, nodes)
+            nodes.append(root.val)
+            inorder(root.right, nodes)
+
+        inorder(root, nodes)
+        for i in range(1, len(nodes)):
+            if nodes[i] <= nodes[i-1]:
                 return False
-            index += 1
         return True
-        
-    def inorder(self, root, output):
-        if root:
-            output = self.inorder(root.left, output)
-            output.append(root.val)
-            output = self.inorder(root.right, output)
-        return output
