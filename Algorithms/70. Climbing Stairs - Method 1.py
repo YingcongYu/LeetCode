@@ -7,11 +7,7 @@ class Solution:
     def climbStairs(self, n: int) -> int:
         if n == 1:
             return 1
-        a = 1
-        b = 2
-        while n - 2 > 0:
-            temp = a + b
-            a = b
-            b = temp
-            n -= 1
-        return b
+        a, b = 1, 2
+        for i in range(n-1):
+            a, b = b, a+b
+        return a
