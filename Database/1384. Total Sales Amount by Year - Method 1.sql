@@ -4,24 +4,35 @@
 
 
 # Write your MySQL query statement below
-WITH RECURSIVE years AS(
-    SELECT date('2018-01-01') AS year_start, date('2018-12-31') AS year_end
-    UNION ALL
-    SELECT date_add(year_start, INTERVAL 1 YEAR) AS year_start, date_add(year_end, INTERVAL 1 YEAR) AS year_end FROM years 
-    WHERE year(year_end) < (SELECT year(max(period_end)) FROM Sales)
+WITH RECURSIVE CTE1 AS (
+    SELECT
+        DATE('2018-01-01') AS year_start
+        ,DATE('2018-12-31') AS year_end
+    UNION
+    SELECT
+        DATE_ADD(year_start, INTERVAL 1 YEAR)
+        ,DATE_ADD(year_end, INTERVAL 1 YEAR)
+    FROM CTE1
+    WHERE year_end < DATE('2020-12-31')
+),
+CTE2 AS (
+    SELECT
+        product_id
+        ,CASE WHEN period_start > year_start THEN period_start ELSE year_start END AS report_year_start
+        ,CASE WHEN period_end < year_end THEN period_end ELSE year_end END AS report_year_end
+        ,average_daily_sales
+    FROM Sales
+    JOIN CTE1
+    ON Sales.period_start <= CTE1.year_end
+        AND Sales.period_end >= CTE1.year_start
 )
 
-SELECT product_id, 
-       product_name, 
-       cast(year(report_start) AS char) AS report_year, 
-       (datediff(report_end, report_start) + 1) * average_daily_sales AS total_amount
-FROM
-    (SELECT product_id, 
-           product_name,
-           CASE WHEN period_start <= year_start THEN year_start ELSE period_start END AS report_start,
-           CASE WHEN period_end <= year_end THEN period_end ELSE year_end END AS report_end,
-           average_daily_sales
-    FROM years JOIN (SELECT Sales.product_id AS product_id, product_name, period_start, period_end, average_daily_sales 
-                     FROM Sales JOIN Product ON Sales.product_id = Product.product_id) info
-    ON info.period_start <= years.year_end AND info.period_end >= years.year_start) a
+SELECT
+    CTE2.product_id AS product_id
+    ,product_name
+    ,CAST(year(report_year_start) AS CHAR) AS report_year
+    ,(DATEDIFF(report_year_end, report_year_start)+1) * average_daily_sales AS total_amount
+FROM CTE2, Product
+WHERE CTE2.product_id = Product.product_id
+GROUP BY product_id, year(report_year_start)
 ORDER BY product_id, report_year
