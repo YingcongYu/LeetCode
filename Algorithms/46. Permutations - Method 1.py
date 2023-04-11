@@ -3,12 +3,12 @@
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def recursive(nums, cur, output):
+        def recursive(nums, cur):
             if not nums:
                 output.append(cur)
             for i in range(len(nums)):
-                recursive(nums[:i]+nums[i+1:], cur+[nums[i]], output)      
+                recursive(nums[:i]+nums[i+1:], cur+[nums[i]])      
         
         output = []
-        recursive(nums, [], output)
+        recursive(nums, [])
         return output
