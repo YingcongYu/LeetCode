@@ -24,14 +24,13 @@ class Solution:
                     reference[i] = 1
                 else:
                     reference[i] = 0
-        print(reference)
+
         for i in words:
             try:
                 if i != i[::-1]:
                     reference[i[::-1]] += 1
             except:
                 pass
-        print(reference)
         
         for i, n in reference.items():
             if n >= 1:
