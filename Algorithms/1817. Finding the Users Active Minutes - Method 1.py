@@ -14,14 +14,10 @@
 class Solution:
     def findingUsersActiveMinutes(self, logs: List[List[int]], k: int) -> List[int]:
         output = [0] * k
-        ref = {}
+        ref = collections.defaultdict(set)
         
         for i, t in logs:
-            if i in ref:
-                if t not in ref[i]:
-                    ref[i].append(t)
-            else:
-                ref[i] = [t]
+            ref[i].add(t)
         
         for i in ref:
             output[len(ref[i])-1] += 1
