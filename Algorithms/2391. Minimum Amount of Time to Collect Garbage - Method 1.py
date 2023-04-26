@@ -27,16 +27,4 @@ class Solution:
             if m_end != 0 and g_end != 0 and p_end != 0:
                 break
         
-        m = sum(travel[:m_end])
-        g = sum(travel[:g_end])
-        p = sum(travel[:p_end])
-
-        for i in garbage:
-            if 'M'  in i:
-                m += i.count('M')
-            if 'G' in i:
-                g += i.count('G')
-            if 'P' in i:
-                p += i.count('P')
-        
-        return m + g + p
+        return sum(travel[:m_end]) + sum(travel[:g_end]) + sum(travel[:p_end]) + len(''.join(garbage))
