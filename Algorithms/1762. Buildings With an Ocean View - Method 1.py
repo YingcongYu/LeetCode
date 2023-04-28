@@ -8,12 +8,12 @@
 
 class Solution:
     def findBuildings(self, heights: List[int]) -> List[int]:
-        output = [len(heights) - 1]
-        tallest = heights[-1]
+        output = []
+        tallest = -float('inf')
 
-        for i in range(len(heights)-2, -1, -1):
+        for i in range(len(heights)-1, -1, -1):
             if heights[i] > tallest:
-                output.insert(0, i)
+                output.append(i)
                 tallest = heights[i]
         
-        return output
+        return output[::-1]
