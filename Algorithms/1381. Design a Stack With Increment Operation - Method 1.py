@@ -21,8 +21,7 @@ class CustomStack:
     def pop(self) -> int:
         if not self.stack:
             return -1
-        else:
-            return self.stack.pop()        
+        return self.stack.pop()        
 
     def increment(self, k: int, val: int) -> None:
         for i in range(len(self.stack)):
