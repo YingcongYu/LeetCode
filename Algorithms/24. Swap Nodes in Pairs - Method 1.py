@@ -9,14 +9,10 @@
 #         self.next = next
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        def recursive(head):
-            if head and head.next:
-                cur = recursive(head.next.next)
-                temp = head.next
-                head.next = cur
-                temp.next = head
-                return temp
-            else:
-                return head
-        
-        return recursive(head)
+        if head and head.next:
+            temp = head.next
+            head.next = self.swapPairs(head.next.next)
+            temp.next = head
+            return temp
+        else:
+            return head
