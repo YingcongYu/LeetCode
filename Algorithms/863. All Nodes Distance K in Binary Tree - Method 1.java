@@ -19,28 +19,7 @@ class Solution {
 
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         add_parent(root);
-
-        List<TreeNode> nodes = new ArrayList<>();
-        nodes.add(root);
-        while (!nodes.isEmpty()) {
-            List<TreeNode> temp = new ArrayList<>();
-            for (TreeNode node : nodes) {
-                if (node == null) {
-                    continue;
-                }
-
-                if (node.val == target.val) {
-                    dfs(node, k);
-                    temp.clear();
-                    break;
-                }
-
-                temp.add(node.left);
-                temp.add(node.right);
-            }
-
-            nodes = temp;
-        }
+        dfs(target, k);
 
         return output;
     }
