@@ -12,17 +12,11 @@ class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
         TreeSet<Integer> safe = new TreeSet<>();
 
-        for (int i = 0; i < graph.length; i++) {
-            if (graph[i].length == 0) {
-                safe.add(i);
-            }
-        }
-
         boolean flag = false;
         do {
             flag = false;
             for (int i = 0; i < graph.length; i++) {
-                if (!safe.contains(i) && safe.containsAll(Arrays.stream(graph[i]).boxed().collect(Collectors.toSet()))) {
+                if (!safe.contains(i) && (graph[i].length == 0 || safe.containsAll(Arrays.stream(graph[i]).boxed().collect(Collectors.toSet())))) {
                     safe.add(i);
                     flag = true;
                 }
