@@ -10,29 +10,29 @@
 
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        TreeSet<Integer> safe = new TreeSet<>();
-        Map<Integer, Boolean> ref = new HashMap<>();
-        for (int i = 0; i < graph.length; i++) {
-            ref.put(i, false);
-        }
+        boolean[] safe = new boolean[graph.length];
+        Arrays.fill(safe, false);
+        boolean[] visited = new boolean[graph.length];
+        Arrays.fill(visited, false);
 
         boolean flag = false;
         do {
             flag = false;
             for (int i = 0; i < graph.length; i++) {
-                if (!safe.contains(i) && (graph[i].length == 0 || Arrays.stream(graph[i]).allMatch(node -> ref.get(node) == true))) {
-                    safe.add(i);
+                if (safe[i] == false && (graph[i].length == 0 || Arrays.stream(graph[i]).allMatch(node -> visited[node] == true))) {
+                    safe[i] = true;
                     flag = true;
-                    ref.put(i, true);
+                    visited[i] = true;
                 }
             }
         } while (flag == true);
 
-        return new ArrayList<>(safe);
-    }
-}
-        } while (flag == true);
-
-        return new ArrayList<>(safe);
+        List<Integer> output = new ArrayList<>();
+        for (int i = 0; i < graph.length; i++) {
+            if (safe[i] == true) {
+                output.add(i);
+            }
+        }
+        return output;
     }
 }
