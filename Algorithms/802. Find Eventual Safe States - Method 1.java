@@ -11,16 +11,26 @@
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
         TreeSet<Integer> safe = new TreeSet<>();
+        Map<Integer, Boolean> ref = new HashMap<>();
+        for (int i = 0; i < graph.length; i++) {
+            ref.put(i, false);
+        }
 
         boolean flag = false;
         do {
             flag = false;
             for (int i = 0; i < graph.length; i++) {
-                if (!safe.contains(i) && (graph[i].length == 0 || safe.containsAll(Arrays.stream(graph[i]).boxed().collect(Collectors.toSet())))) {
+                if (!safe.contains(i) && (graph[i].length == 0 || Arrays.stream(graph[i]).allMatch(node -> ref.get(node) == true))) {
                     safe.add(i);
                     flag = true;
+                    ref.put(i, true);
                 }
             }
+        } while (flag == true);
+
+        return new ArrayList<>(safe);
+    }
+}
         } while (flag == true);
 
         return new ArrayList<>(safe);
