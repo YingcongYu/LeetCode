@@ -14,6 +14,6 @@ class Solution:
         for i, row in enumerate(mat):
             num_soldiers.append((i, sum(row)))
         
-        num_soldiers.sort(key = lambda x: x[1])
+        num_soldiers.sort(key = lambda x: (x[1], x[0]))
 
         return [num_soldiers[x][0] for x in range(k)]
